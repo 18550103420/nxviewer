@@ -1,7 +1,7 @@
 import { mapActions, mapState } from 'vuex';
 
-import VtkView from 'paraview-glance/src/components/core/VtkView';
-import { Breakpoints } from 'paraview-glance/src/constants';
+import VtkView from 'nxviewer/src/components/core/VtkView';
+import { Breakpoints } from 'nxviewer/src/constants';
 
 // ----------------------------------------------------------------------------
 // Component API

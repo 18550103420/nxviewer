@@ -1,4 +1,4 @@
-import Node from 'paraview-glance/src/components/widgets/TreeView/Node';
+import Node from 'nxviewer/src/components/widgets/TreeView/Node';
 
 // ----------------------------------------------------------------------------
 // Component methods

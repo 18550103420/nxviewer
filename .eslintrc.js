@@ -23,7 +23,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': ['error', prettierConf],
-
+    'global-require': 0,
     'no-console': 0,
     'prefer-destructuring': 0,
     'no-plusplus': 0,

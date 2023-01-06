@@ -1,4 +1,4 @@
-import helper from 'paraview-glance/src/components/core/Datasets/helper';
+import helper from 'nxviewer/src/components/core/Datasets/helper';
 
 const FIELDS = [
   { name: 'pointSize', initialValue: 1 },

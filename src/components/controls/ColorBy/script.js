@@ -3,11 +3,11 @@ import vtkMath from '@kitware/vtk.js/Common/Core/Math';
 import vtkColorMaps from '@kitware/vtk.js/Rendering/Core/ColorTransferFunction/ColorMaps';
 import PwfProxyConstants from '@kitware/vtk.js/Proxy/Core/PiecewiseFunctionProxy/Constants';
 
-import PiecewiseFunctionEditor from 'paraview-glance/src/components/widgets/PiecewiseFunctionEditor';
-import PalettePicker from 'paraview-glance/src/components/widgets/PalettePicker';
-import TreeView from 'paraview-glance/src/components/widgets/TreeView';
-import { SPECTRAL } from 'paraview-glance/src/palette';
-import Presets from 'paraview-glance/src/config/ColorMaps';
+import PiecewiseFunctionEditor from 'nxviewer/src/components/widgets/PiecewiseFunctionEditor';
+import PalettePicker from 'nxviewer/src/components/widgets/PalettePicker';
+import TreeView from 'nxviewer/src/components/widgets/TreeView';
+import { SPECTRAL } from 'nxviewer/src/palette';
+import Presets from 'nxviewer/src/config/ColorMaps';
 
 const { Mode: PwfMode } = PwfProxyConstants;
 

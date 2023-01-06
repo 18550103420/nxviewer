@@ -1,5 +1,3 @@
-<template
-  src="paraview-glance/src/components/controls/Molecule/template.html"
-/>
-<style module src="paraview-glance/src/components/core/Datasets/controls.css" />
-<script src="paraview-glance/src/components/controls/Molecule/script.js" />
+<template src="nxviewer/src/components/controls/Molecule/template.html" />
+<style module src="nxviewer/src/components/core/Datasets/controls.css" />
+<script src="nxviewer/src/components/controls/Molecule/script.js" />

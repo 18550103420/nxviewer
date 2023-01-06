@@ -3,7 +3,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Vuetify from 'vuetify/lib';
 
-import GirderProvider from 'paraview-glance/src/girder';
 import { vuetify as girderVuetify } from '@girder/components/src';
 
 import '@kitware/vtk.js/Rendering/Profiles/All';
@@ -13,19 +12,19 @@ import vtkProxyManager from '@kitware/vtk.js/Proxy/Core/ProxyManager';
 
 import 'typeface-roboto/index.css';
 import '@mdi/font/css/materialdesignicons.css';
-import 'paraview-glance/static/global.css';
+import 'nxviewer/static/global.css';
 
 // side-effect: register readers
-import 'paraview-glance/src/io/ParaViewGlanceReaders';
+import 'nxviewer/src/io/ParaViewGlanceReaders';
 // side-effect: register presets
-import 'paraview-glance/src/config/ColorMaps';
+import 'nxviewer/src/config/ColorMaps';
 
-import ReaderFactory from 'paraview-glance/src/io/ReaderFactory';
-import App from 'paraview-glance/src/components/core/App';
-import Config from 'paraview-glance/src/config';
-import createStore from 'paraview-glance/src/store';
-import { ProxyManagerVuePlugin } from 'paraview-glance/src/plugins';
-import Settings from 'paraview-glance/src/settings';
+import ReaderFactory from 'nxviewer/src/io/ReaderFactory';
+import App from 'nxviewer/src/components/core/App';
+import Config from 'nxviewer/src/config';
+import createStore from 'nxviewer/src/store';
+import { ProxyManagerVuePlugin } from 'nxviewer/src/plugins';
+import Settings from 'nxviewer/src/settings';
 
 // Expose IO API to Glance global object
 export const {
@@ -62,14 +61,12 @@ export function createViewer(container, proxyConfig = null) {
 
   const store = createStore({
     proxyManager,
-    girder: GirderProvider,
   });
 
   const app = new Vue({
     el: container,
     components: { App },
     store,
-    provide: GirderProvider,
     // if in the future we want to configure vuetify ourselves, see
     // https://github.com/girder/girder_web_components/blob/master/README.md
     vuetify: girderVuetify,

@@ -8,26 +8,26 @@ import vtkPiecewiseFunctionProxy from '@kitware/vtk.js/Proxy/Core/PiecewiseFunct
 import vtkProxySource from '@kitware/vtk.js/Proxy/Core/SourceProxy';
 import vtkView from '@kitware/vtk.js/Proxy/Core/ViewProxy';
 
-import vtkCropWidget from 'paraview-glance/src/vtk/CropWidget';
-import vtkAngleWidget from 'paraview-glance/src/vtk/AngleWidget';
-import vtkDistance2DWidget from 'paraview-glance/src/vtk/Distance2DWidget';
-import vtkTextWidget from 'paraview-glance/src/vtk/TextWidget';
+import vtkCropWidget from 'nxviewer/src/vtk/CropWidget';
+import vtkAngleWidget from 'nxviewer/src/vtk/AngleWidget';
+import vtkDistance2DWidget from 'nxviewer/src/vtk/Distance2DWidget';
+import vtkTextWidget from 'nxviewer/src/vtk/TextWidget';
 import vtkPaintWidget from '@kitware/vtk.js/Widgets/Widgets3D/PaintWidget';
 
-import vtkCustomSliceRepresentationProxy from 'paraview-glance/src/vtk/CustomSliceRepresentationProxy';
-import vtkCustomVolumeRepresentationProxy from 'paraview-glance/src/vtk/CustomVolumeRepresentationProxy';
-import vtkLabelMapVolumeRepProxy from 'paraview-glance/src/vtk/LabelMapVolumeRepProxy';
-import vtkLabelMapSliceRepProxy from 'paraview-glance/src/vtk/LabelMapSliceRepProxy';
-import vtkWidgetProxy from 'paraview-glance/src/vtk/WidgetProxy';
+import vtkCustomSliceRepresentationProxy from 'nxviewer/src/vtk/CustomSliceRepresentationProxy';
+import vtkCustomVolumeRepresentationProxy from 'nxviewer/src/vtk/CustomVolumeRepresentationProxy';
+import vtkLabelMapVolumeRepProxy from 'nxviewer/src/vtk/LabelMapVolumeRepProxy';
+import vtkLabelMapSliceRepProxy from 'nxviewer/src/vtk/LabelMapSliceRepProxy';
+import vtkWidgetProxy from 'nxviewer/src/vtk/WidgetProxy';
 
 import vtkAnimationProxyManager from '@kitware/vtk.js/Proxy/Animation/AnimationProxyManager';
 import vtkTimeStepBasedAnimationProxy from '@kitware/vtk.js/Proxy/Animation/TimeStepBasedAnimationHandlerProxy';
 
-import ConfigUtils from 'paraview-glance/src/config/configUtils';
+import ConfigUtils from 'nxviewer/src/config/configUtils';
 
-import proxyUI from 'paraview-glance/src/config/proxyUI';
-import proxyLinks from 'paraview-glance/src/config/proxyLinks';
-import proxyViewRepresentationMapping from 'paraview-glance/src/config/proxyViewRepresentationMapping';
+import proxyUI from 'nxviewer/src/config/proxyUI';
+import proxyLinks from 'nxviewer/src/config/proxyLinks';
+import proxyViewRepresentationMapping from 'nxviewer/src/config/proxyViewRepresentationMapping';
 
 const { createProxyDefinition, activateOnCreate } = ConfigUtils;
 

@@ -4,16 +4,16 @@ import vtkDataArray from '@kitware/vtk.js/Common/Core/DataArray';
 import vtkPaintFilter from '@kitware/vtk.js/Filters/General/PaintFilter';
 import { SlicingMode } from '@kitware/vtk.js/Rendering/Core/ImageMapper/Constants';
 
-import vtkLabelMap from 'paraview-glance/src/vtk/LabelMap';
-import PalettePicker from 'paraview-glance/src/components/widgets/PalettePicker';
-import PopUp from 'paraview-glance/src/components/widgets/PopUp';
-import SourceSelect from 'paraview-glance/src/components/widgets/SourceSelect';
+import vtkLabelMap from 'nxviewer/src/vtk/LabelMap';
+import PalettePicker from 'nxviewer/src/components/widgets/PalettePicker';
+import PopUp from 'nxviewer/src/components/widgets/PopUp';
+import SourceSelect from 'nxviewer/src/components/widgets/SourceSelect';
 
 import {
   createRepresentationInAllViews,
   makeSubManager,
-} from 'paraview-glance/src/utils';
-import { SPECTRAL } from 'paraview-glance/src/palette';
+} from 'nxviewer/src/utils';
+import { SPECTRAL } from 'nxviewer/src/palette';
 
 const SYNC = 'PaintToolSync';
 const NEW_LABELMAP = -2;
@@ -54,7 +54,6 @@ function createLabelMapFromImage(imageData) {
 
 export default {
   name: 'PaintTool',
-  inject: ['girderRest'],
   components: {
     PalettePicker,
     PopUp,
@@ -63,15 +62,14 @@ export default {
   props: ['enabled'],
   data() {
     return {
-      targetImageId: -1, // target image to paint
+      targetImageId: -1,
       activeLabelmapId: -1,
       internalLabelmaps: [],
       widgetId: -1,
       editingName: false,
       editableLabelmapName: '',
       brushSizeMax: 100,
-      radius: 5,
-      brush2D: false,
+      radius: 3,
       // for view purpose only
       // [ { label, color, opacity }, ... ], sorted by label asc
       colormapArray: [],
@@ -80,7 +78,6 @@ export default {
   computed: {
     ...mapState('widgets', {
       imageToLabelmaps: (state) => state.imageToLabelmaps,
-      labelmapToImage: (state) => state.labelmapToImage,
       labelmapStates: (state) => state.labelmapStates,
     }),
     labelmaps() {
@@ -99,11 +96,6 @@ export default {
     },
     activeLabelmapProxy() {
       return this.$proxyManager.getProxyById(this.activeLabelmapId);
-    },
-    activeLabelmapParentImageProxy() {
-      return this.$proxyManager.getProxyById(
-        this.labelmapToImage[this.activeLabelmapId]
-      );
     },
     activeLabelmapState() {
       return this.labelmapStates[this.activeLabelmapId];
@@ -254,9 +246,6 @@ export default {
           labelmapState,
         });
       },
-      deleteLabelmapInternal(dispatch, labelmapId) {
-        return dispatch('widgets/deleteLabelmap', labelmapId);
-      },
     }),
     setRadius(r) {
       this.radius = Math.max(1, Math.round(r));
@@ -273,10 +262,7 @@ export default {
       }
     },
     deleteLabelmap() {
-      if (this.activeLabelmapProxy) {
-        this.deleteLabelmapInternal(this.activeLabelmapProxy.getProxyId());
-        this.$proxyManager.deleteProxy(this.activeLabelmapProxy);
-      }
+      this.$proxyManager.deleteProxy(this.activeLabelmapProxy);
     },
     filterImageData(source) {
       return (
@@ -492,11 +478,7 @@ export default {
         }, priority);
 
         const s1 = viewWidget.onStartInteractionEvent(() => {
-          if (this.brush2D) {
-            this.filter.setSlicingMode(SlicingMode['XYZ'[view.getAxis()]]);
-          } else {
-            this.filter.setSlicingMode(SlicingMode.NONE);
-          }
+          this.filter.setSlicingMode(SlicingMode['XYZ'[view.getAxis()]]);
           this.filter.startStroke();
           this.filter.addPoint(
             this.paintProxy.getWidgetState().getTrueOrigin()
@@ -543,19 +525,13 @@ export default {
       this.widgetId = -1;
     },
     upload() {
-      setTimeout(() => {
-        const proxy = this.activeLabelmapProxy;
-        const parentImageProxy = this.activeLabelmapParentImageProxy;
-        if (proxy && parentImageProxy) {
-          if (parentImageProxy.getKey('girderProvenance')) {
-            proxy.setKey(
-              'girderProvenance',
-              parentImageProxy.getKey('girderProvenance')
-            );
-          }
+      console.log(`uploadLabel`);
+      const proxy = this.activeLabelmapProxy;
+      if (proxy) {
+        setTimeout(() => {
           this.$root.$emit('girder_upload_proxy', this.activeLabelmapId);
-        }
-      }, 10);
+        }, 10);
+      }
     },
   },
 };

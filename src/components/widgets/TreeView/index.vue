@@ -1,3 +1,3 @@
-<template src="paraview-glance/src/components/widgets/TreeView/template.html" />
-<style module src="paraview-glance/src/components/widgets/TreeView/style.css" />
-<script src="paraview-glance/src/components/widgets/TreeView/script.js" />
+<template src="nxviewer/src/components/widgets/TreeView/template.html" />
+<style module src="nxviewer/src/components/widgets/TreeView/style.css" />
+<script src="nxviewer/src/components/widgets/TreeView/script.js" />

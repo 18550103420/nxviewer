@@ -1,8 +1,8 @@
 <template
-  src="paraview-glance/src/components/widgets/PiecewiseFunctionEditor/template.html"
+  src="nxviewer/src/components/widgets/PiecewiseFunctionEditor/template.html"
 />
 <style
   module
-  src="paraview-glance/src/components/widgets/PiecewiseFunctionEditor/style.css"
+  src="nxviewer/src/components/widgets/PiecewiseFunctionEditor/style.css"
 />
-<script src="paraview-glance/src/components/widgets/PiecewiseFunctionEditor/script.js" />
+<script src="nxviewer/src/components/widgets/PiecewiseFunctionEditor/script.js" />

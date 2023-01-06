@@ -1,105 +1,25 @@
-import SvgIcon from 'paraview-glance/src/components/widgets/SvgIcon';
-import { mapState } from 'vuex';
-
-import Datasets from 'paraview-glance/src/components/core/Datasets';
-
-import {
-  GirderAuthentication,
-  GirderFileManager,
-  GirderUpload,
-} from '@girder/components/src';
-
+import SvgIcon from 'nxviewer/src/components/widgets/SvgIcon';
+import Datasets from 'nxviewer/src/components/core/Datasets';
 import writeImageArrayBuffer from 'itk/writeImageArrayBuffer';
-
+import ReaderFactory from 'nxviewer/src/io/ReaderFactory';
 import ITKHelper from '@kitware/vtk.js/Common/DataModel/ITKHelper';
-import vtkXMLPolyDataWriter from '@kitware/vtk.js/IO/XML/XMLPolyDataWriter';
-import vtkXMLWriter from '@kitware/vtk.js/IO/XML/XMLWriter';
-import vtkSTLWriter from '@kitware/vtk.js/IO/Geometry/STLWriter';
-
-function arrayBufferToFile(ab, name) {
-  const blob = new Blob([ab]);
-  return new File([blob], name);
-}
-
-function writeDatasetToFile(dataset, name) {
-  return new Promise((resolve, reject) => {
-    if (dataset.isA('vtkImageData')) {
-      const image = ITKHelper.convertVtkToItkImage(dataset);
-      // If we don't copy here, the renderer's copy of the ArrayBuffer
-      // becomes invalid because it's been transferred:
-      image.data = image.data.slice(0);
-      writeImageArrayBuffer(null, false, image, name).then((ab) =>
-        resolve(arrayBufferToFile(ab, name))
-      );
-    } else if (dataset.isA('vtkPolyData')) {
-      let writer = null;
-      if (name.endsWith('.vtp')) {
-        writer = vtkXMLPolyDataWriter.newInstance();
-        writer.setFormat(vtkXMLWriter.FormatTypes.BINARY);
-      } else if (name.endsWith('.stl')) {
-        writer = vtkSTLWriter.newInstance();
-      }
-
-      if (writer) {
-        resolve(arrayBufferToFile(writer.write(dataset), name));
-      } else {
-        reject(new Error(`Cannot save polydata dataset ${name}`));
-      }
-    } else {
-      reject(new Error(`Cannot save dataset ${name}`));
-    }
-  });
-}
 
 export default {
   name: 'GirderBox',
   components: {
     SvgIcon,
-    GirderAuthentication,
-    GirderFileManager,
     Datasets,
-    GirderUpload,
   },
-  inject: ['girderRest', '$notify'],
+  inject: ['$notify'],
   data() {
     return {
       selected: [],
       internalLocation: null,
-      changeServer: false,
-      newGirderURL: this.girderRest.apiRoot,
-      changeURLPrompt: false,
+      inputJsonUrl: null,
+      pkSubjectData: null,
+      imageList: [],
+      rFilesList: [],
     };
-  },
-  computed: {
-    currentUserLogin() {
-      return this.girderRest.user ? this.girderRest.user.login : 'anonymous';
-    },
-    loggedOut() {
-      return this.girderRest.user === null;
-    },
-    location: {
-      get() {
-        return (
-          this.internalLocation ||
-          (this.loggedOut
-            ? {
-                // Stephen's COVID19 dataset
-                _id: '5e84eb3e2660cbefba7d71d9',
-                _modelType: 'folder',
-              }
-            : this.girderRest.user)
-        );
-      },
-      set(value) {
-        this.internalLocation = value;
-      },
-    },
-    noURLChange() {
-      return this.newGirderURL === this.girderRest.apiRoot;
-    },
-    ...mapState('widgets', {
-      dataMeasurements: 'measurements',
-    }),
   },
   mounted() {
     // TODO these can be moved to store when we add girder
@@ -107,32 +27,94 @@ export default {
     this.$root.$on('girder_upload_proxy', (proxyId) => {
       this.upload(proxyId);
     });
-    this.$root.$on('girder_upload_measurements', (proxyId) => {
-      this.uploadMeasurements(proxyId);
-    });
+    this.inputJsonUrl = decodeURIComponent(this.GetInputUrl());
+    // console.log(this.inputJsonUrl);
+
+    if (this.inputJsonUrl.length > 0) {
+      try {
+        const req = new XMLHttpRequest();
+        req.open('GET', this.inputJsonUrl, false);
+        req.send();
+        if (req.status === 200) {
+          const inputJSON = JSON.parse(req.response);
+          inputJSON.forEach((f) => {
+            f.Url.forEach((u, index) => {
+              let fname = '';
+              if (f.Type.includes('dcm')) {
+                fname = `${f.Description} - ${index + 1}.dcm`;
+              } else if (f.Type.includes('label')) {
+                this.pkSubjectData = f.PkSubjectData;
+                fname = f.Description;
+              }
+              this.imageList.push({
+                name: fname,
+                inputType: f.Type,
+                url: u,
+                pkSubjectData: f.PkSubjectData,
+              });
+            });
+          });
+          this.downloadFiles().then(() => {
+            this.$store.dispatch('files/openFiles', this.rFilesList);
+          });
+        } else {
+          console.log(`Request ERROR!(req.status:${req.status})`);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
   },
   methods: {
-    load() {
-      const rfiles = this.selected.map((elem) => ({
-        /* eslint-disable-next-line no-underscore-dangle */
-        url: `${this.girderRest.apiRoot}/item/${elem._id}/download`,
-        name: elem.name,
-        withGirderToken: true,
-        proxyKeys: {
-          girderProvenance: {
-            ...this.location,
-            apiRoot: this.girderRest.apiRoot,
-          },
-          girderItem: {
-            /* eslint-disable-next-line no-underscore-dangle */
-            itemId: elem._id,
-            itemName: elem.name,
-          },
-          meta: elem.meta,
-        },
-      }));
+    downloadFiles() {
+      const downloadPromises = [];
+      this.imageList.forEach((image) => {
+        downloadPromises.push(
+          ReaderFactory.downloadDataset(image.name, image.url, {}).then(
+            (getFile) => {
+              this.rFilesList.push({
+                neuroDataType: image.inputType,
+                dispName: image.name,
+                file: getFile,
+              });
+              // this.rFilesList.push(file);
+            }
+          )
+        );
+      });
 
-      this.$store.dispatch('files/openRemoteFiles', rfiles);
+      return Promise.all(downloadPromises);
+    },
+    GetInputUrl() {
+      const url = window.location.toString();
+      const arrObj = url.split('?');
+      if (arrObj.length > 1) {
+        let inputUrl = '';
+        for (let i = 1; i < arrObj.length; i++) {
+          if (i > 1) {
+            inputUrl += '?';
+          }
+          inputUrl += arrObj[i];
+        }
+        return inputUrl;
+      }
+      return '';
+    },
+    GetUrlParam(paraName) {
+      const url = window.location.toString();
+      const arrObj = url.split('?');
+      if (arrObj.length > 1) {
+        const arrPara = arrObj[1].split('&');
+        let arr;
+        for (let i = 0; i < arrPara.length; i++) {
+          arr = arrPara[i].split('=');
+          if (arr != null && arr[0] === paraName) {
+            return arr[1];
+          }
+        }
+        return '';
+      }
+      return '';
     },
     export2pc(proxyId) {
       const dataset = this.$proxyManager.getProxyById(proxyId).get().dataset;
@@ -142,7 +124,7 @@ export default {
       // becomes invalid because it's been transferred:
       image.data = image.data.slice(0);
       writeImageArrayBuffer(null, false, image, 'out.mha').then(
-        ({ arrayBuffer }) => {
+        function recieve({ arrayBuffer }) {
           const blob = new Blob([arrayBuffer]);
           const url = URL.createObjectURL(blob);
           const anchor = document.createElement('a');
@@ -156,37 +138,18 @@ export default {
       );
     },
     checkUploadPossible() {
-      if (this.loggedOut) {
-        this.$notify(
-          'Cannot upload to Girder unless logged in. Please log in then try again'
-        );
-        return false;
-      }
-      if (!this.location) {
-        this.$notify(
-          'Cannot upload to Girder root location. Please navigate to a folder you own then try again'
-        );
-        return false;
-      }
-      /* eslint-disable-next-line no-underscore-dangle */
-      if (this.location._modelType === 'user') {
-        this.$notify(
-          'Cannot upload here. Please select public or private and then try again'
-        );
-        return false;
-      }
+      // if need!
       return true;
     },
     upload(proxyId) {
+      console.log(`upload!`);
       if (!this.checkUploadPossible()) {
         return;
       }
-      const dataProxy = this.$proxyManager.getProxyById(proxyId);
-      const dataset = dataProxy.getDataset();
-      const name = dataProxy.getName();
+      const dataset = this.$proxyManager.getProxyById(proxyId).get().dataset;
 
       const metadata = {
-        glanceDataType: dataset.getClassName(),
+        neuroDataType: dataset.getClassName(),
       };
 
       if (dataset.getClassName() === 'vtkLabelMap') {
@@ -197,76 +160,54 @@ export default {
 
       this.$notify('Uploading...', true);
 
-      writeDatasetToFile(dataset, name).then((file) => {
-        const dest =
-          this.$proxyManager.getProxyById(proxyId).getKey('girderProvenance') ||
-          this.location;
-
-        // hacky; I would extract the upload logic, but
-        // this will do for now.
-        this.$refs.girderUploader.setFiles([file]);
-        this.$refs.girderUploader.inputFilesChanged([file]);
-        this.$refs.girderUploader
-          .start({
-            dest,
-            postUpload: ({ results }) => {
-              const { itemId } = results[0];
-              this.girderRest.put(
-                `${this.girderRest.apiRoot}/item/${itemId}`,
-                `metadata=${JSON.stringify(metadata)}`
-              );
-              this.$notify('Dataset uploaded');
-              this.$refs.girderFileManager.refresh();
-            },
-          })
-          .catch((e) => {
-            this.$notify(`Upload error: ${e}`);
-            console.error('Upload error', e);
-          });
+      const image = ITKHelper.convertVtkToItkImage(dataset);
+      // If we don't copy here, the renderer's copy of the ArrayBuffer
+      // becomes invalid because it's been transferred:
+      image.data = image.data.slice(0);
+      writeImageArrayBuffer(
+        null,
+        false,
+        image,
+        this.$proxyManager.getProxyById(proxyId).get().name
+      ).then((valueReturned) => {
+        const t = new Date();
+        let fileName = `${t.getFullYear()}${
+          t.getMonth() + 1
+        }${t.getDate()}_${t.getHours()}-${t.getMinutes()}-${t.getSeconds()}-`;
+        fileName += this.$proxyManager.getProxyById(proxyId).get().name;
+        const buffer = valueReturned.arrayBuffer;
+        const blob = new Blob([buffer]);
+        const file = new File([blob], fileName);
+        const param = new FormData();
+        const SparkMD5 = require('spark-md5');
+        const fileReader = new FileReader();
+        fileReader.readAsArrayBuffer(file);
+        fileReader.onloadend = (e) => {
+          const spark = new SparkMD5.ArrayBuffer();
+          spark.append(e.target.result);
+          const md5Str = spark.end();
+          // const md5Str = SparkMD5.hash(e.target.result);
+          param.append('Md5', md5Str);
+          param.append('File', file);
+          param.append('PkSubjectData', this.pkSubjectData);
+          param.append('FileName', fileName);
+          param.append('Ext', 'nii.gz');
+          const req = new XMLHttpRequest();
+          const postUrl = 'http://192.168.50.199:9002/apiv1/dicom/label';
+          req.open('POST', postUrl, true);
+          req.send(param);
+          req.onreadystatechange = () => {
+            if (req.readyState === 4) {
+              const rspJSON = JSON.parse(req.response);
+              if (rspJSON.success) {
+                this.$notify('LabelImage uploaded Success!');
+              } else {
+                this.$notify(`Upload error(errorCode:${rspJSON.errorCode})`);
+              }
+            }
+          };
+        };
       });
-    },
-    uploadMeasurements(proxyId) {
-      if (!this.checkUploadPossible()) {
-        return;
-      }
-      const measurements = this.dataMeasurements[proxyId];
-      if (measurements) {
-        const proxyName = this.$proxyManager.getProxyById(proxyId).getName();
-        const name = `${proxyName}.measurements.json`;
-        const file = new File([JSON.stringify(measurements)], name);
-        const dest =
-          this.$proxyManager.getProxyById(proxyId).getKey('girderProvenance') ||
-          this.location;
-
-        this.$notify('Uploading...', true);
-
-        // hacky; I would extract the upload logic, but
-        // this will do for now.
-        this.$refs.girderUploader.setFiles([file]);
-        this.$refs.girderUploader.inputFilesChanged([file]);
-        this.$refs.girderUploader
-          .start({
-            dest,
-            postUpload: () => {
-              this.$notify('Measurements uploaded');
-              this.$refs.girderFileManager.refresh();
-            },
-          })
-          .catch((e) => {
-            this.$notify(`Upload error: ${e}`);
-            console.error('Upload error', e);
-          });
-      }
-    },
-    refreshPage() {
-      const url = new URL(window.location.href);
-      const params = new URLSearchParams(url.search);
-      params.set('girderRoute', this.newGirderURL);
-      url.search = params.toString();
-      window.location.href = url.toString();
-    },
-    logout() {
-      this.girderRest.logout();
     },
   },
 };

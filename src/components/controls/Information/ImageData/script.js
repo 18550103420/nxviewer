@@ -1,4 +1,4 @@
-import MatrixView from 'paraview-glance/src/components/controls/Information/MatrixView';
+import MatrixView from 'nxviewer/src/components/controls/Information/MatrixView';
 
 export default {
   name: 'ImageDataInformation',

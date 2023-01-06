@@ -191,22 +191,6 @@
         </v-tooltip>
         <v-tooltip
           top
-          :disabled="smallScreen"
-        >
-          <span class="pv-no-select">Screenshot</span>
-          <template v-slot:activator="{ on }">
-            <v-btn
-              :class="$style.button"
-              icon
-              v-on="on"
-              v-on:click="screenCapture()"
-            >
-              <v-icon>mdi-camera-plus</v-icon>
-            </v-btn>
-          </template>
-        </v-tooltip>
-        <v-tooltip
-          top
           v-if="!smallScreen && singleViewButton"
           key="singleView"
         >

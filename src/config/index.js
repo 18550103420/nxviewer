@@ -1,4 +1,4 @@
-import Proxy from 'paraview-glance/src/config/proxy';
+import Proxy from 'nxviewer/src/config/proxy';
 
 export default {
   Proxy,

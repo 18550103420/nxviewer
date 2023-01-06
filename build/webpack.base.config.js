@@ -126,7 +126,7 @@ module.exports = {
           to: path.join('itk', 'Pipelines'),
           to: '[name][ext]',
         },
-        { from: 'static/ParaView.png' },
+        { from: 'static/neuroblem.png' },
       ]
     }),
     new GenerateSW({
@@ -148,7 +148,7 @@ module.exports = {
     extensions: ['.js', '.vue'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      'paraview-glance': paths.root,
+      'nxviewer': paths.root,
       '@kitware/vtk.js/Rendering/Core/ColorTransferFunction/ColorMaps.json': path.join(paths.source, 'config/ColorMaps.json'),
     },
   },

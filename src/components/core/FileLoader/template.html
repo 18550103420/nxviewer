@@ -12,8 +12,9 @@
         <v-card-text>
           <v-container>
             <v-tabs v-model="active_tab">
-              <v-tab>Local</v-tab>
-              <v-tab>Girder</v-tab>
+              <!-- <v-tab>Local</v-tab> -->
+              <v-tab>InputList</v-tab>
+              <!--
               <v-tab-item transition="fade-transition">
                 <drag-and-drop
                   enabled
@@ -37,6 +38,7 @@
                   </template>
                 </drag-and-drop>
               </v-tab-item>
+              -->
               <v-tab-item transition="fade-transition">
                 <girder-box />     
               </v-tab-item>
@@ -105,6 +107,9 @@
         <v-card-actions>
           <v-spacer />
           <span v-if="anyErrors" class="red--text mr-3">Only checked files will be loaded.</span>
+          <span class="red--text mr-3">
+            Local files are not support now!
+          </span>
           <v-btn
             text
             :disabled="loading"

@@ -5,21 +5,21 @@ import Vuex from 'vuex';
 import vtk from '@kitware/vtk.js/vtk';
 import vtkProxyManager from '@kitware/vtk.js/Proxy/Core/ProxyManager';
 
-import { ProxyManagerVuexPlugin } from 'paraview-glance/src/plugins';
+import { ProxyManagerVuexPlugin } from 'nxviewer/src/plugins';
 
-import viewHelper from 'paraview-glance/src/components/core/VtkView/helper';
-import ReaderFactory from 'paraview-glance/src/io/ReaderFactory';
-import postProcessDataset from 'paraview-glance/src/io/postProcessing';
-import Config from 'paraview-glance/src/config';
-import files, { getExtension } from 'paraview-glance/src/store/fileLoader';
-import views from 'paraview-glance/src/store/views';
-import widgets from 'paraview-glance/src/store/widgets';
-import animations from 'paraview-glance/src/store/animations';
+import viewHelper from 'nxviewer/src/components/core/VtkView/helper';
+import ReaderFactory from 'nxviewer/src/io/ReaderFactory';
+import postProcessDataset from 'nxviewer/src/io/postProcessing';
+import Config from 'nxviewer/src/config';
+import files, { getExtension } from 'nxviewer/src/store/fileLoader';
+import views from 'nxviewer/src/store/views';
+import widgets from 'nxviewer/src/store/widgets';
+import animations from 'nxviewer/src/store/animations';
 
 import {
   wrapMutationAsAction,
   createRepresentationInAllViews,
-} from 'paraview-glance/src/utils';
+} from 'nxviewer/src/utils';
 
 const STATE_VERSION = 2;
 
@@ -127,14 +127,6 @@ function createStore(injected) {
           Vue.set(state.panels, priority, []);
         }
         state.panels[priority].push(component);
-      },
-      openScreenshotDialog(state, screenshot) {
-        state.pendingScreenshot = screenshot;
-        state.screenshotDialog = true;
-      },
-      closeScreenshotDialog(state) {
-        state.pendingScreenshot = null;
-        state.screenshotDialog = false;
       },
       mostRecentViewPoint(state, viewPoint) {
         state.mostRecentViewPoint = viewPoint;

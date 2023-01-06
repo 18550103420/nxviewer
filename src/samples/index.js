@@ -1,4 +1,4 @@
-import Images from 'paraview-glance/src/samples/images';
+import Images from 'nxviewer/src/samples/images';
 
 const version =
   window.GLANCE_VERSION && window.GLANCE_VERSION !== 'master'

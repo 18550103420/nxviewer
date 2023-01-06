@@ -1,17 +1,17 @@
 import { mapState, mapGetters, mapActions } from 'vuex';
 
-import { Breakpoints } from 'paraview-glance/src/constants';
+import { Breakpoints } from 'nxviewer/src/constants';
 import {
   ANNOTATIONS,
   DEFAULT_VIEW_TYPE,
   VIEW_TYPES,
   VIEW_TYPES_LPS,
   VIEW_ORIENTATIONS,
-} from 'paraview-glance/src/components/core/VtkView/constants';
+} from 'nxviewer/src/components/core/VtkView/constants';
 
-import PalettePicker from 'paraview-glance/src/components/widgets/PalettePicker';
-import ToolbarSheet from 'paraview-glance/src/components/core/ToolbarSheet';
-import { BACKGROUND } from 'paraview-glance/src/components/core/VtkView/palette';
+import PalettePicker from 'nxviewer/src/components/widgets/PalettePicker';
+import ToolbarSheet from 'nxviewer/src/components/core/ToolbarSheet';
+import { BACKGROUND } from 'nxviewer/src/components/core/VtkView/palette';
 
 const ROTATION_STEP = 2;
 

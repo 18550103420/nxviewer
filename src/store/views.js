@@ -6,10 +6,10 @@ import {
   DEFAULT_VIEW_TYPE,
   VIEW_TYPES,
   VIEW_ORIENTATIONS,
-} from 'paraview-glance/src/components/core/VtkView/constants';
-import { DEFAULT_BACKGROUND } from 'paraview-glance/src/components/core/VtkView/palette';
+} from 'nxviewer/src/components/core/VtkView/constants';
+import { DEFAULT_BACKGROUND } from 'nxviewer/src/components/core/VtkView/palette';
 
-import { remapIdValues, wrapMutationAsAction } from 'paraview-glance/src/utils';
+import { remapIdValues, wrapMutationAsAction } from 'nxviewer/src/utils';
 
 const { CaptureOn } = WidgetManagerConstants;
 

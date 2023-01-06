@@ -1,3 +1,3 @@
-<template src="paraview-glance/src/components/core/Datasets/template.html" />
-<style module src="paraview-glance/src/components/core/Datasets/style.css" />
-<script src="paraview-glance/src/components/core/Datasets/script.js" />
+<template src="nxviewer/src/components/core/Datasets/template.html" />
+<style module src="nxviewer/src/components/core/Datasets/style.css" />
+<script src="nxviewer/src/components/core/Datasets/script.js" />

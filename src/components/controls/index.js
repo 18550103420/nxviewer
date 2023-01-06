@@ -1,8 +1,8 @@
-import ColorBy from 'paraview-glance/src/components/controls/ColorBy';
-import Information from 'paraview-glance/src/components/controls/Information';
-import Molecule from 'paraview-glance/src/components/controls/Molecule';
-import Representation from 'paraview-glance/src/components/controls/Representation';
-import Slice from 'paraview-glance/src/components/controls/SliceControl';
+import ColorBy from 'nxviewer/src/components/controls/ColorBy';
+import Information from 'nxviewer/src/components/controls/Information';
+import Molecule from 'nxviewer/src/components/controls/Molecule';
+import Representation from 'nxviewer/src/components/controls/Representation';
+import Slice from 'nxviewer/src/components/controls/SliceControl';
 
 export default [
   {

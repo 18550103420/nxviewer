@@ -3,11 +3,11 @@ import vtkAbstractWidgetFactory from '@kitware/vtk.js/Widgets/Core/AbstractWidge
 import vtkPlanePointManipulator from '@kitware/vtk.js/Widgets/Manipulators/PlaneManipulator';
 import vtkSphereHandleRepresentation from '@kitware/vtk.js/Widgets/Representations/SphereHandleRepresentation';
 
-import widgetBehavior from 'paraview-glance/src/vtk/TextWidget/behavior';
-import stateGenerator from 'paraview-glance/src/vtk/TextWidget/state';
+import widgetBehavior from 'nxviewer/src/vtk/TextWidget/behavior';
+import stateGenerator from 'nxviewer/src/vtk/TextWidget/state';
 
-import vtkSVGCircleHandleRepresentation from 'paraview-glance/src/vtk/SVGCircleHandleRepresentation';
-import vtkSVGLabelRepresentation from 'paraview-glance/src/vtk/SVGLabelRepresentation';
+import vtkSVGCircleHandleRepresentation from 'nxviewer/src/vtk/SVGCircleHandleRepresentation';
+import vtkSVGLabelRepresentation from 'nxviewer/src/vtk/SVGLabelRepresentation';
 
 import { ViewTypes } from '@kitware/vtk.js/Widgets/Core/WidgetManager/Constants';
 

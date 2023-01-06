@@ -28,7 +28,7 @@ export default {
     importIcon(icon) {
       return import(
         /* webpackMode: "eager" */
-        `paraview-glance/static/icons/${icon}.svg`
+        `nxviewer/static/icons/${icon}.svg`
       )
         .then((svg) => {
           // The reason for this conditional assignment is that this mode of dynamic import has

@@ -1,4 +1,4 @@
-import vtkLabelMap from 'paraview-glance/src/vtk/LabelMap';
+import vtkLabelMap from 'nxviewer/src/vtk/LabelMap';
 
 export function copyImageToLabelMap(vtkImage) {
   /* eslint-disable-next-line import/no-named-as-default-member */
@@ -12,10 +12,9 @@ export function copyImageToLabelMap(vtkImage) {
 }
 
 export default function postProcessDataset(ds, meta = {}) {
-  if (meta.glanceDataType === 'vtkLabelMap') {
+  if (meta.neuroDataType === 'vtkLabelMap') {
     const lm = copyImageToLabelMap(ds);
     if (meta.colorMap) {
-      console.log("labelmap");
       lm.setColorMap(meta.colorMap);
     }
     return lm;

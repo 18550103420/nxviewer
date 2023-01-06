@@ -99,14 +99,6 @@
       <v-flex xs10 class="mt-1">
         <label class="v-label theme--light" for="paint-2D-brush-toggle">2D Brush</label>
       </v-flex>
-      <v-flex xs2 class="mt-1">
-        <v-switch
-          v-model="brush2D"
-          id="paint-2D-brush-toggle"
-          class="mt-n1 pt-0"
-          hide-details
-        />
-      </v-flex>
       <v-flex xs12>
         <v-slider
           label="Radius"
@@ -227,12 +219,11 @@
         </v-list>
       </v-flex>
       <v-btn
-        :disabled="!girderRest.user"
         @click="upload()"
       >
         Upload
       </v-btn>
-      <span v-show="!girderRest.user" class="body-2">Log in to upload</span>
+      <span class="body-2">Upload to Server</span>
     </v-layout>
   </v-container>
 </div>

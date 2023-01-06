@@ -5,8 +5,8 @@ import ITKHelper from '@kitware/vtk.js/Common/DataModel/ITKHelper';
 
 import { Portal } from '@linusborg/vue-simple-portal';
 
-import SourceSelect from 'paraview-glance/src/components/widgets/SourceSelect';
-import { createRepresentationInAllViews } from 'paraview-glance/src/utils';
+import SourceSelect from 'nxviewer/src/components/widgets/SourceSelect';
+import { createRepresentationInAllViews } from 'nxviewer/src/utils';
 
 const { vtkErrorMacro } = macro;
 const NEW_IMAGE = -2;

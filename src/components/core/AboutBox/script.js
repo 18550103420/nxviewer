@@ -1,4 +1,4 @@
-import SvgIcon from 'paraview-glance/src/components/widgets/SvgIcon';
+import SvgIcon from 'nxviewer/src/components/widgets/SvgIcon';
 
 // ----------------------------------------------------------------------------
 

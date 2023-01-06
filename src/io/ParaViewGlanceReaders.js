@@ -7,9 +7,9 @@ import vtkPLYReader from '@kitware/vtk.js/IO/Geometry/PLYReader';
 import vtkJSONReader from '@kitware/vtk.js/IO/Misc/JSONReader';
 import vtkSkyboxReader from '@kitware/vtk.js/IO/Misc/SkyboxReader';
 
-import vtkGlanceStateReader from 'paraview-glance/src/io/GlanceStateReader';
-import vtkGlanceVtkJsReader from 'paraview-glance/src/io/GlanceVtkJsReader';
-import vtkGlanceZipObjReader from 'paraview-glance/src/io/GlanceZipObjReader';
+import vtkGlanceStateReader from 'nxviewer/src/io/GlanceStateReader';
+import vtkGlanceVtkJsReader from 'nxviewer/src/io/GlanceVtkJsReader';
+import vtkGlanceZipObjReader from 'nxviewer/src/io/GlanceZipObjReader';
 import ReaderFactory from './ReaderFactory';
 
 // ----------------------------------------------------------------------------

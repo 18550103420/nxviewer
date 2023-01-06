@@ -4,7 +4,7 @@ import vtkPiecewiseFunction from '@kitware/vtk.js/Common/DataModel/PiecewiseFunc
 import vtkSliceRepresentationProxy from '@kitware/vtk.js/Proxy/Representations/SliceRepresentationProxy';
 import ImagePropertyConstants from '@kitware/vtk.js/Rendering/Core/ImageProperty/Constants';
 
-import { makeSubManager } from 'paraview-glance/src/utils';
+import { makeSubManager } from 'nxviewer/src/utils';
 
 const { InterpolationType } = ImagePropertyConstants;
 

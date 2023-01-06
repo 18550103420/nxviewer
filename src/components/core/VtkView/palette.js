@@ -1,4 +1,4 @@
-import { SPECTRAL } from 'paraview-glance/src/palette';
+import { SPECTRAL } from 'nxviewer/src/palette';
 
 export const DEFAULT_BACKGROUND = 'linear-gradient(#333, #999)';
 

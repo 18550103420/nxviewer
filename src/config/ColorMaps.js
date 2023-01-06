@@ -1,5 +1,5 @@
 import vtkColorMaps from '@kitware/vtk.js/Rendering/Core/ColorTransferFunction/ColorMaps';
-import Presets from 'paraview-glance/src/config/Presets.json';
+import Presets from 'nxviewer/src/config/Presets.json';
 
 const DEFAULT_PRESET = {
   ...vtkColorMaps.getPresetByName('Cool to Warm'),

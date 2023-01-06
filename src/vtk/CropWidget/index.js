@@ -4,7 +4,7 @@ import vtkSphereHandleRepresentation from '@kitware/vtk.js/Widgets/Representatio
 import vtkOutlineContextRepresentation from '@kitware/vtk.js/Widgets/Representations/OutlineContextRepresentation';
 import vtkImageCroppingWidget from '@kitware/vtk.js/Widgets/Widgets3D/ImageCroppingWidget';
 
-import behavior from 'paraview-glance/src/vtk/CropWidget/behavior';
+import behavior from 'nxviewer/src/vtk/CropWidget/behavior';
 
 import { ViewTypes } from '@kitware/vtk.js/Widgets/Core/WidgetManager/Constants';
 

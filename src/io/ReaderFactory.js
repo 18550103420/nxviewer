@@ -1,5 +1,5 @@
 import vtkHttpDataAccessHelper from '@kitware/vtk.js/IO/Core/DataAccessHelper/HttpDataAccessHelper';
-import { createRepresentationInAllViews } from 'paraview-glance/src/utils';
+import { createRepresentationInAllViews } from 'nxviewer/src/utils';
 
 const READER_MAPPING = {};
 
@@ -209,7 +209,7 @@ function registerReadersToProxyManager(readers, proxyManager) {
       if (
         proxyKeys &&
         proxyKeys.meta &&
-        proxyKeys.meta.glanceDataType === 'vtkLabelMap'
+        proxyKeys.meta.neuroDataType === 'vtkLabelMap'
       ) {
         proxyName = 'LabelMap';
       }

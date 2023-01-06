@@ -1,5 +1,3 @@
-<template
-  src="paraview-glance/src/components/widgets/DragAndDrop/template.html"
-/>
+<template src="nxviewer/src/components/widgets/DragAndDrop/template.html" />
 <style />
-<script src="paraview-glance/src/components/widgets/DragAndDrop/script.js" />
+<script src="nxviewer/src/components/widgets/DragAndDrop/script.js" />

@@ -1,6 +1,6 @@
-import Datasets from 'paraview-glance/src/components/core/Datasets';
-import EditTools from 'paraview-glance/src/components/core/EditTools';
-import GlobalSettings from 'paraview-glance/src/components/core/GlobalSettings';
+import Datasets from 'nxviewer/src/components/core/Datasets';
+import EditTools from 'nxviewer/src/components/core/EditTools';
+import GlobalSettings from 'nxviewer/src/components/core/GlobalSettings';
 
 // ----------------------------------------------------------------------------
 

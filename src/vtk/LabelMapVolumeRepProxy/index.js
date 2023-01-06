@@ -5,7 +5,7 @@ import vtkAbstractRepresentationProxy from '@kitware/vtk.js/Proxy/Core/AbstractR
 import vtkColorTransferFunction from '@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
 import vtkPiecewiseFunction from '@kitware/vtk.js/Common/DataModel/PiecewiseFunction';
 
-import { makeSubManager } from 'paraview-glance/src/utils';
+import { makeSubManager } from 'nxviewer/src/utils';
 
 // ----------------------------------------------------------------------------
 // vtkLabelMapVolumeRepProxy methods

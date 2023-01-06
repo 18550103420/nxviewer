@@ -2,12 +2,12 @@ import macro from '@kitware/vtk.js/macro';
 import vtkSphereHandleRepresentation from '@kitware/vtk.js/Widgets/Representations/SphereHandleRepresentation';
 import vtkAngleWidget from '@kitware/vtk.js/Widgets/Widgets3D/AngleWidget';
 
-import widgetBehavior from 'paraview-glance/src/vtk/AngleWidget/behavior';
-import stateGenerator from 'paraview-glance/src/vtk/AngleWidget/state';
+import widgetBehavior from 'nxviewer/src/vtk/AngleWidget/behavior';
+import stateGenerator from 'nxviewer/src/vtk/AngleWidget/state';
 
-import vtkSVGCircleHandleRepresentation from 'paraview-glance/src/vtk/SVGCircleHandleRepresentation';
-import vtkSVGLineRepresentation from 'paraview-glance/src/vtk/SVGLineRepresentation';
-import vtkSVGLabelRepresentation from 'paraview-glance/src/vtk/SVGLabelRepresentation';
+import vtkSVGCircleHandleRepresentation from 'nxviewer/src/vtk/SVGCircleHandleRepresentation';
+import vtkSVGLineRepresentation from 'nxviewer/src/vtk/SVGLineRepresentation';
+import vtkSVGLabelRepresentation from 'nxviewer/src/vtk/SVGLabelRepresentation';
 
 import { ViewTypes } from '@kitware/vtk.js/Widgets/Core/WidgetManager/Constants';
 

@@ -1,5 +1,5 @@
 <template
-  src="paraview-glance/src/components/controls/Information/MatrixView/template.html"
+  src="nxviewer/src/components/controls/Information/MatrixView/template.html"
 />
-<style module src="paraview-glance/src/components/core/Datasets/style.css" />
-<script src="paraview-glance/src/components/controls/Information/MatrixView/script.js" />
+<style module src="nxviewer/src/components/core/Datasets/style.css" />
+<script src="nxviewer/src/components/controls/Information/MatrixView/script.js" />

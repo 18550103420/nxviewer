@@ -1,7 +1,7 @@
 import { mapState } from 'vuex';
 
-import Controls from 'paraview-glance/src/components/controls';
-import ColorGroup from 'paraview-glance/src/components/widgets/ColorGroup';
+import Controls from 'nxviewer/src/components/controls';
+import ColorGroup from 'nxviewer/src/components/widgets/ColorGroup';
 
 // ----------------------------------------------------------------------------
 

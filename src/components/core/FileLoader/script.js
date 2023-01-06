@@ -1,16 +1,12 @@
 import { mapGetters, mapState, mapActions } from 'vuex';
 
-import RawFileReader from 'paraview-glance/src/components/core/RawFileReader';
-import DragAndDrop from 'paraview-glance/src/components/widgets/DragAndDrop';
-import GirderBox from 'paraview-glance/src/components/core/GirderBox';
+import GirderBox from 'nxviewer/src/components/core/GirderBox';
 
 // ----------------------------------------------------------------------------
 
 export default {
   name: 'FileLoader',
   components: {
-    RawFileReader,
-    DragAndDrop,
     GirderBox,
   },
   props: {
@@ -22,7 +18,7 @@ export default {
   data() {
     return {
       loading: false,
-      active_tab: 0,
+      active_tab: 1,
     };
   },
   mounted() {
@@ -54,7 +50,6 @@ export default {
       'openFiles',
       'promptLocal',
       'deleteFile',
-      'setRawFileInfo',
       'load',
       'resetQueue',
     ]),
@@ -71,12 +66,6 @@ export default {
     },
     deleteFileAtRevIndex(revIdx) {
       return this.deleteFile(this.fileList.length - 1 - revIdx);
-    },
-    setRawFileInfoAtRevIndex(revIdx, info) {
-      return this.setRawFileInfo({
-        index: this.fileList.length - 1 - revIdx,
-        info,
-      });
     },
     onDialogChange(state) {
       if (!state) {

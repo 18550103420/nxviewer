@@ -1,7 +1,7 @@
-import VtkFieldData from 'paraview-glance/src/components/controls/Information/FieldData';
-import VtkImageData from 'paraview-glance/src/components/controls/Information/ImageData';
-import VtkMolecule from 'paraview-glance/src/components/controls/Information/Molecule';
-import VtkPolyData from 'paraview-glance/src/components/controls/Information/PolyData';
+import VtkFieldData from 'nxviewer/src/components/controls/Information/FieldData';
+import VtkImageData from 'nxviewer/src/components/controls/Information/ImageData';
+import VtkMolecule from 'nxviewer/src/components/controls/Information/Molecule';
+import VtkPolyData from 'nxviewer/src/components/controls/Information/PolyData';
 
 export default {
   name: 'Information',

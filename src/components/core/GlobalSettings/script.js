@@ -1,9 +1,9 @@
 import { mapState, mapActions } from 'vuex';
 
-import AnimationControls from 'paraview-glance/src/components/widgets/AnimationControls';
-import GpuInformation from 'paraview-glance/src/components/widgets/GPUInformation';
-import PalettePicker from 'paraview-glance/src/components/widgets/PalettePicker';
-import { BACKGROUND } from 'paraview-glance/src/components/core/VtkView/palette';
+import AnimationControls from 'nxviewer/src/components/widgets/AnimationControls';
+import GpuInformation from 'nxviewer/src/components/widgets/GPUInformation';
+import PalettePicker from 'nxviewer/src/components/widgets/PalettePicker';
+import { BACKGROUND } from 'nxviewer/src/components/core/VtkView/palette';
 
 const INTERACTION_STYLES_3D = [
   { text: 'Default', value: '3D' },

@@ -1,2 +1,2 @@
-<template src="paraview-glance/src/components/widgets/SvgIcon/template.html" />
-<script src="paraview-glance/src/components/widgets/SvgIcon/script.js" />
+<template src="nxviewer/src/components/widgets/SvgIcon/template.html" />
+<script src="nxviewer/src/components/widgets/SvgIcon/script.js" />
