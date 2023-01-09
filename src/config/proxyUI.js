@@ -110,56 +110,6 @@ const Slice = [
   },
 ];
 
-const Molecule = [
-  {
-    name: 'tolerance',
-    domain: { min: 0, max: 0.5, step: 0.01 },
-  },
-  {
-    name: 'atomicRadiusScaleFactor',
-    domain: { min: 0, max: 0.5, step: 0.01 },
-  },
-  {
-    name: 'bondRadius',
-    domain: { min: 0, max: 0.5, step: 0.01 },
-  },
-  {
-    name: 'deltaBondFactor',
-    domain: { min: 0, max: 0.5, step: 0.01 },
-  },
-  {
-    name: 'hideElements',
-  },
-];
-
-const Glyph = [
-  {
-    name: 'edgeVisibility',
-  },
-];
-
-const View3D = [
-  { name: 'name' },
-  {
-    name: 'background',
-    domain: {
-      palette: [],
-    },
-  },
-  {
-    name: 'orientationAxesVisibility',
-  },
-  {
-    name: 'presetToOrientationAxes',
-    domain: {
-      items: [
-        { text: 'XYZ', value: 'default' },
-        { text: 'LPS', value: 'lps' },
-      ],
-    },
-  },
-];
-
 const View2D = [
   { name: 'name' },
   {
@@ -192,9 +142,6 @@ export default {
   Volume,
   Geometry,
   Slice,
-  Molecule,
-  Glyph,
-  View3D,
   View2D,
   Skybox,
 };

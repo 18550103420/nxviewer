@@ -1,16 +1,10 @@
 import vtk2DView from '@kitware/vtk.js/Proxy/Core/View2DProxy';
 import vtkGeometryRepresentationProxy from '@kitware/vtk.js/Proxy/Representations/GeometryRepresentationProxy';
 import vtkSkyboxRepresentationProxy from '@kitware/vtk.js/Proxy/Representations/SkyboxRepresentationProxy';
-import vtkGlyphRepresentationProxy from '@kitware/vtk.js/Proxy/Representations/GlyphRepresentationProxy';
 import vtkLookupTableProxy from '@kitware/vtk.js/Proxy/Core/LookupTableProxy';
-import vtkMoleculeRepresentationProxy from '@kitware/vtk.js/Proxy/Representations/MoleculeRepresentationProxy';
 import vtkPiecewiseFunctionProxy from '@kitware/vtk.js/Proxy/Core/PiecewiseFunctionProxy';
 import vtkProxySource from '@kitware/vtk.js/Proxy/Core/SourceProxy';
-import vtkView from '@kitware/vtk.js/Proxy/Core/ViewProxy';
 
-import vtkCropWidget from 'nxviewer/src/vtk/CropWidget';
-import vtkAngleWidget from 'nxviewer/src/vtk/AngleWidget';
-import vtkDistance2DWidget from 'nxviewer/src/vtk/Distance2DWidget';
 import vtkTextWidget from 'nxviewer/src/vtk/TextWidget';
 import vtkPaintWidget from '@kitware/vtk.js/Widgets/Widgets3D/PaintWidget';
 
@@ -19,9 +13,6 @@ import vtkCustomVolumeRepresentationProxy from 'nxviewer/src/vtk/CustomVolumeRep
 import vtkLabelMapVolumeRepProxy from 'nxviewer/src/vtk/LabelMapVolumeRepProxy';
 import vtkLabelMapSliceRepProxy from 'nxviewer/src/vtk/LabelMapSliceRepProxy';
 import vtkWidgetProxy from 'nxviewer/src/vtk/WidgetProxy';
-
-import vtkAnimationProxyManager from '@kitware/vtk.js/Proxy/Animation/AnimationProxyManager';
-import vtkTimeStepBasedAnimationProxy from '@kitware/vtk.js/Proxy/Animation/TimeStepBasedAnimationHandlerProxy';
 
 import ConfigUtils from 'nxviewer/src/config/configUtils';
 
@@ -32,7 +23,6 @@ import proxyViewRepresentationMapping from 'nxviewer/src/config/proxyViewReprese
 const { createProxyDefinition, activateOnCreate } = ConfigUtils;
 
 const ViewToWidgetTypes = {
-  View3D: 'VOLUME',
   View2D_X: 'SLICE',
   View2D_Y: 'SLICE',
   View2D_Z: 'SLICE',
@@ -44,12 +34,6 @@ function createDefaultView(classFactory, ui, options, props) {
       classFactory,
       ui,
       [
-        {
-          type: 'application',
-          link: 'AnnotationOpacity',
-          property: 'annotationOpacity',
-          updateOnBind: true,
-        },
         {
           type: 'application',
           link: 'OrientationAxesVisibility',
@@ -85,20 +69,8 @@ export default {
       PiecewiseFunction: createProxyDefinition(vtkPiecewiseFunctionProxy),
     },
     Widgets: {
-      Crop: createProxyDefinition(vtkWidgetProxy, [], [], {
-        factory: vtkCropWidget,
-        viewTypes: ViewToWidgetTypes,
-      }),
       Paint: createProxyDefinition(vtkWidgetProxy, [], [], {
         factory: vtkPaintWidget,
-        viewTypes: ViewToWidgetTypes,
-      }),
-      Angle: createProxyDefinition(vtkWidgetProxy, [], [], {
-        factory: vtkAngleWidget,
-        viewTypes: ViewToWidgetTypes,
-      }),
-      Ruler: createProxyDefinition(vtkWidgetProxy, [], [], {
-        factory: vtkDistance2DWidget,
         viewTypes: ViewToWidgetTypes,
       }),
       Text: createProxyDefinition(vtkWidgetProxy, [], [], {
@@ -168,16 +140,6 @@ export default {
         proxyUI.Volume,
         proxyLinks.Volume
       ),
-      Molecule: createProxyDefinition(
-        vtkMoleculeRepresentationProxy,
-        proxyUI.Molecule,
-        proxyLinks.Molecule
-      ),
-      Glyph: createProxyDefinition(
-        vtkGlyphRepresentationProxy,
-        proxyUI.Glyph,
-        proxyLinks.Glyph
-      ),
       LabelMapVolume: createProxyDefinition(
         vtkLabelMapVolumeRepProxy,
         [], // ui
@@ -222,25 +184,13 @@ export default {
       ),
     },
     Views: {
-      View3D: createDefaultView(vtkView, proxyUI.View3D),
       View2D: createDefaultView(vtk2DView, proxyUI.View2D),
       View2D_X: createDefaultView(vtk2DView, proxyUI.View2D, { axis: 0 }),
       View2D_Y: createDefaultView(vtk2DView, proxyUI.View2D, { axis: 1 }),
       View2D_Z: createDefaultView(vtk2DView, proxyUI.View2D, { axis: 2 }),
     },
-    AnimationManager: {
-      AnimationProxyManager: {
-        class: vtkAnimationProxyManager,
-      },
-    },
-    Animations: {
-      TimeStepAnimation: {
-        class: vtkTimeStepBasedAnimationProxy,
-      },
-    },
   },
   representations: {
-    View3D: proxyViewRepresentationMapping.View3D,
     View2D: proxyViewRepresentationMapping.View2D,
     View2D_X: {
       ...proxyViewRepresentationMapping.View2D,
@@ -261,7 +211,5 @@ export default {
   filters: {
     vtkPolyData: [],
     vtkImageData: [],
-    vtkMolecule: [],
-    Glyph: [],
   },
 };

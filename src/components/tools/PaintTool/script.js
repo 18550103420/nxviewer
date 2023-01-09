@@ -305,6 +305,8 @@ export default {
         const baseImageName = this.targetImageProxy.getName();
         lmProxy.setName(`Labelmap ${labelmapNum} ${baseImageName}`);
 
+        console.log(`backgroundImage:`);
+        console.log(backgroundImage);
         const labelMap = createLabelMapFromImage(backgroundImage);
         labelMap.setLabelColor(lmState.selectedLabel, fromHex(this.palette[0]));
 

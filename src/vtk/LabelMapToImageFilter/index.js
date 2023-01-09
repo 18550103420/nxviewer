@@ -7,6 +7,7 @@ const { vtkErrorMacro } = macro;
 // ----------------------------------------------------------------------------
 
 function vtkLabelMapToImageFilter(publicAPI, model) {
+  console.log('vtkLabelMapToImageFilter');
   // Set our className
   model.classHierarchy.push('vtkLabelMapToImageFilter');
 
