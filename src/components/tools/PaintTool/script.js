@@ -529,7 +529,7 @@ export default {
       const proxy = this.activeLabelmapProxy;
       if (proxy) {
         setTimeout(() => {
-          this.$root.$emit('girder_upload_proxy', this.activeLabelmapId);
+          this.$root.$emit('upload_proxy', this.activeLabelmapId);
         }, 10);
       }
     },

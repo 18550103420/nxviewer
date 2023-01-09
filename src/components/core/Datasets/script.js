@@ -138,7 +138,7 @@ export default {
       if (proxy) {
         this.$root.$emit('open_girder_panel');
         setTimeout(() => {
-          this.$root.$emit('girder_upload_proxy', sourceId);
+          this.$root.$emit('upload_proxy', sourceId);
         }, 10);
       }
     },

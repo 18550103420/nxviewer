@@ -24,7 +24,7 @@ export default {
   mounted() {
     // TODO these can be moved to store when we add girder
     // state to store
-    this.$root.$on('girder_upload_proxy', (proxyId) => {
+    this.$root.$on('upload_proxy', (proxyId) => {
       this.upload(proxyId);
     });
     this.inputJsonUrl = decodeURIComponent(this.GetInputUrl());

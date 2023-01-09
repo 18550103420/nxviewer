@@ -5,8 +5,7 @@
   :class="$style.tabsContainer"
 >
   <v-tab>Datasets</v-tab>
-  <v-tab>Tools</v-tab>
-  <v-tab>Global</v-tab>
+  <v-tab>Edit</v-tab>
   <v-tabs-items
     v-model="activeTab"
     touchless
@@ -17,9 +16,6 @@
     </v-tab-item>
     <v-tab-item eager :class="$style.tabItem">
       <edit-tools />
-    </v-tab-item>
-    <v-tab-item :class="$style.tabItem">
-      <global-settings />
     </v-tab-item>
   </v-tabs-items>
 </v-tabs>
